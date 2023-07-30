@@ -1,8 +1,12 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const { MongoClient, ObjectId} = require('mongodb');
 
 const app = express();
+// Allow all origins for testing purposes (you can restrict it to specific origins in production)
+app.use(cors());
+app.use(express.urlencoded({extended: false}));
 const port = process.env.PORT || 3000;
 
 // Middleware to parse JSON data from the request body
