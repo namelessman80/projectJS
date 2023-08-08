@@ -53,7 +53,9 @@ module.exports = (db) => { //Exporting a function that takes a parameter db, whi
       if (result.modifiedCount === 0) { //updateOne method returns 1) matchedCount, 2) modifiedCount (= # of modified docs.), 3) upsertedId, 4) acknowledged
         return res.status(404).json({ error: 'Post not found' });
       }
-      res.json({ message: 'Post updated successfully' });
+      /* new lines to return _id */ const updatedPost = await postCollection.findOne({ _id: new ObjectId(postId) }); // Fetch the updated post from the database
+      res.json(updatedPost); // Return the updated post object to the client
+      //res.json({ message: 'Post updated successfully' });
     } catch (err) {
       res.status(500).json({ error: 'Failed to update the post' });
     }
